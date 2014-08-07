@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'space.fight.seryus.GdxDefinition'
-    devModules 'space.fight.seryus.GdxDefinitionSuperdev'
+    modules 'net.sites.seryux.GdxDefinition'
+    devModules 'net.sites.seryux.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {
