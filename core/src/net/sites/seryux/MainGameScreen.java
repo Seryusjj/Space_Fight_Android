@@ -5,6 +5,7 @@ import net.sites.seryux.input.ShipControlsInput;
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.GameScreen;
+import net.sites.seryux.utils.GameState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;

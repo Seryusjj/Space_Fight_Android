@@ -1,5 +1,7 @@
 package net.sites.seryux;
 
+import net.sites.seryux.utils.GameState;
+
 import com.badlogic.gdx.Game;
 
 public class MyGdxGame extends Game {
@@ -10,7 +12,7 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create() {
 		mainMenu = new MainMenuGameScreen(this);
-		mainScreen = new MainGameScreen(this);
+		
 		setScreen(mainMenu);
 
 
@@ -28,6 +30,7 @@ public class MyGdxGame extends Game {
 
 		}else if(GameState.getGameState().ready){
 			GameState.getGameState().resetGameState();
+			mainScreen = new MainGameScreen(this);
 			setScreen(mainScreen);
 		}
 	}
