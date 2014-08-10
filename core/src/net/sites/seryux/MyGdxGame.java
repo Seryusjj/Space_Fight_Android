@@ -1,27 +1,35 @@
 package net.sites.seryux;
 
-
 import com.badlogic.gdx.Game;
 
 public class MyGdxGame extends Game {
 
-
+	private MainMenuGameScreen mainMenu;
 	private MainGameScreen mainScreen;
 
 	@Override
 	public void create() {
-		setMainScreen(new MainGameScreen(this));
+		mainMenu = new MainMenuGameScreen(this);
+		mainScreen = new MainGameScreen(this);
+		setScreen(mainMenu);
+
+
 		
-		setScreen(mainScreen);
+		
+
+
 	}
 
+	@Override
+	public void render() {
+		super.render();
+		if (GameState.getGameState().gameOver) {
+			GameState.getGameState().resetGameState();
 
-	public MainGameScreen getMainScreen() {
-		return mainScreen;
-	}
-
-	public void setMainScreen(MainGameScreen mainScreen) {
-		this.mainScreen = mainScreen;
+		}else if(GameState.getGameState().ready){
+			GameState.getGameState().resetGameState();
+			setScreen(mainScreen);
+		}
 	}
 
 }

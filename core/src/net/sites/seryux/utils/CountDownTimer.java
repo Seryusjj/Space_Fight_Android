@@ -1,5 +1,7 @@
 package net.sites.seryux.utils;
 
+import com.badlogic.gdx.Gdx;
+
 public class CountDownTimer {
 	private float timeRatio, currentTime;
 
@@ -15,9 +17,21 @@ public class CountDownTimer {
 	 * @param delta
 	 * @return true if finished the count down
 	 */
-	public boolean start(float delta) {
+	public boolean hasFinished(float delta) {
 		if (timeRatio > currentTime) {
 			currentTime += delta;
+		} else {
+
+			currentTime = 0;
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean hasFinished() {
+		if (timeRatio > currentTime) {
+			currentTime += Gdx.graphics.getDeltaTime();
 		} else {
 
 			currentTime = 0;

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class BulletManager extends Actor {
-	private int numBullets = 20;
+	private int numBullets = 30;
 	@SuppressWarnings("unused")
 	private Stage escenario;
 	private Bullet[] bullets;
@@ -41,7 +41,7 @@ public class BulletManager extends Actor {
 
 	public void act(float delta) {
 
-		if(parent.isVisible() && timer.start(delta)){
+		if(parent.isVisible() && timer.hasFinished(delta)){
 			if (currentShootType.equals(ShootType.One)) {
 				shootOne();
 			} else if (currentShootType.equals(ShootType.Two)) {

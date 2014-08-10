@@ -21,7 +21,7 @@ class BulletLight extends Actor {
 	}
 
 	public void act(float delta) {
-		if (timer.start(delta)) {
+		if (timer.hasFinished(delta)) {
 			setVisible(false);
 		}
 		super.act(delta);
