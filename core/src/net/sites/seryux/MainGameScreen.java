@@ -9,9 +9,10 @@ import net.sites.seryux.utils.GameState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.utils.async.AsyncTask;
 
 
-public class MainGameScreen extends GameScreen  {
+public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScreen> {
 
 	
 	private Asteroid[] asteroids;
@@ -24,7 +25,7 @@ public class MainGameScreen extends GameScreen  {
 
 	public MainGameScreen(MyGdxGame game) {
 		super(game);
-		initialize();
+		
 	}
 
 
@@ -41,6 +42,7 @@ public class MainGameScreen extends GameScreen  {
 		escenario.addActor(bulletManager);
 		bulletManager.toggleColor();
 		bulletManager.currentShootType = BulletManager.ShootType.Three;
+		GameState.getGameState().ready = true;
 	}
 	private void initializeAsteroids() {
 		asteroids = new Asteroid[10];
@@ -124,6 +126,15 @@ public class MainGameScreen extends GameScreen  {
 			}
 		}
 
+	}
+
+
+
+	@Override
+	public MainGameScreen call() throws Exception {
+		initialize();
+		
+		return this;
 	}
 
 
