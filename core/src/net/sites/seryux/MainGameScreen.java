@@ -25,6 +25,7 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 
 	public MainGameScreen(MyGdxGame game) {
 		super(game);
+		initialize();
 		
 	}
 
@@ -40,9 +41,9 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 		escenario.addActor(nave);
 		bulletManager = new BulletManager(escenario, nave);
 		escenario.addActor(bulletManager);
-		bulletManager.toggleColor();
-		bulletManager.currentShootType = BulletManager.ShootType.Three;
-		GameState.getGameState().ready = true;
+		//bulletManager.toggleColor();
+		bulletManager.currentShootType = BulletManager.ShootType.Two;
+
 	}
 	private void initializeAsteroids() {
 		asteroids = new Asteroid[10];
@@ -90,6 +91,7 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 						nave.breakShip();
 						explosion.setPosition(nave.getX(), nave.getY());
 						escenario.addActor(explosion);
+						GameState.getGameState().gameOver = true;
 					}
 				}
 			}

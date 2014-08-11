@@ -5,7 +5,6 @@ import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.Sprite;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
@@ -32,7 +31,7 @@ public class Ship extends Actor {
 		this.controlador = controlador;
 		//queremos que la nave tenga dos huesos
 		getSprite().addBound();//añadimos uno adicional
-		setDebug(true, new Color(1f, 0, 0, 1));
+		//setDebug(true, new Color(1f, 0, 0, 1));
 
 		breaked = false;
 		

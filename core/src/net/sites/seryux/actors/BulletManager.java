@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class BulletManager extends Actor {
-	private int numBullets = 30;
+	private int numBullets = 40;
 	@SuppressWarnings("unused")
 	private Stage escenario;
 	private Bullet[] bullets;

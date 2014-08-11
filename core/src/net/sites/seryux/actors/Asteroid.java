@@ -6,7 +6,6 @@ import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.Sprite;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,7 +28,7 @@ public class Asteroid extends Actor {
 		super(new Sprite("asteroid/AsteroidSheet.png", 0, 0, 128, 128));
 		createAnim();
 		setBreaked(false);
-		setDebug(true, new Color(1, 0, 0, 1));
+		//setDebug(true, new Color(1, 0, 0, 1));
 		speed = 150;
 		rm = new Random();
 		float scale = rm.nextFloat();

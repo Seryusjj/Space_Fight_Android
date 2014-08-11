@@ -1,8 +1,6 @@
 package net.sites.seryux.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-
 import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.Sprite;
 
@@ -15,7 +13,7 @@ import net.sites.seryux.utils.Sprite;
 
 	public Bullet(Actor parent) {
 		super(new Sprite("effects/laserRed.png", 0, 0, 9, 32));
-		setDebug(parent.isDebug(), new Color(1, 0, 0, 1));
+		//setDebug(parent.isDebug(), new Color(1, 0, 0, 1));
 		setSize(9, 32);
 		setSpeed(300);
 		this.parent = parent;

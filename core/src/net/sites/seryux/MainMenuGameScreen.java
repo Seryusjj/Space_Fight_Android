@@ -4,12 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+import net.sites.seryux.actors.Background;
 import net.sites.seryux.utils.GameScreen;
 import net.sites.seryux.utils.GameState;
 
@@ -17,7 +16,8 @@ public class MainMenuGameScreen extends GameScreen {
 
 	private Table table;
 	private Skin skin;
-	TextButton startGame;
+	private TextButton startGame;
+	private Background bg;
 
 	// ImageButton
 
@@ -26,8 +26,9 @@ public class MainMenuGameScreen extends GameScreen {
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		table = new Table();
 		table.setFillParent(true);
-		Label label = new Label("Sergio", skin);
+		//Label label = new Label("Sergio", skin);
 		startGame = new TextButton("Start", skin);
+		
 		startGame.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
@@ -36,14 +37,15 @@ public class MainMenuGameScreen extends GameScreen {
 			}
 		});
 
-		table.add(startGame);
-		table.row();
-		table.add(label);
+		table.add(startGame).width(100).height(80);
+		//table.row();
+		//table.add(label);
 
-		escenario.addActor(table);
+		
+		bg = new Background(escenario);
 		// input proccessor ahora es el escenario
 		// si no los botones no se actulizan como funcionalidad
-
+		escenario.addActor(table);
 		Gdx.input.setInputProcessor(escenario);
 
 	}
@@ -54,6 +56,7 @@ public class MainMenuGameScreen extends GameScreen {
 		Gdx.gl.glClearColor(1f, 0f, 0f, 1);
 		escenario.draw();
 		escenario.act();
+		bg.moveBackground();
 
 	}
 
