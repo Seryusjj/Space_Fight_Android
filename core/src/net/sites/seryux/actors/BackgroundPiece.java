@@ -1,10 +1,8 @@
 package net.sites.seryux.actors;
 
 import com.badlogic.gdx.Gdx;
-
-
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.Sprite;
+import net.sites.seryux.utils.AssetsManager;
 
 class BackgroundPiece extends Actor {
 	
@@ -14,7 +12,7 @@ class BackgroundPiece extends Actor {
 
 
 	public BackgroundPiece() {
-		super(new Sprite("levels/SkyFirstLvl.png", 0, 0, 512, 1024));
+		super(AssetsManager.getManager().getBackgroundLvl1Sprite());
 		setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		speed =250;
 	}

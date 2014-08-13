@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.sites.seryux.utils.Actor;
+import net.sites.seryux.utils.AssetsManager;
 import net.sites.seryux.utils.Sprite;
 
 public class Explosion extends Actor {
@@ -14,15 +15,14 @@ public class Explosion extends Actor {
 	private Animation explosion;
 
 	public Explosion() {
-		super(new Sprite("effects/explosionSpriteSheet.png", 0, 0, 64, 64));
+		super(AssetsManager.getManager().getExplosionSprite());
 		setSize(128, 128);
 		createExplosionAnim();
 		setVisible(false);
 	}
 
 	private void createExplosionAnim() {
-		Sprite explosion = new Sprite("effects/explosionSpriteSheet.png", 0, 0,
-				64, 64);
+		Sprite explosion = AssetsManager.getManager().getExplosionSprite();
 		TextureRegion asteroidRegion = new TextureRegion(explosion, 0, 0, 256,
 				256);
 		TextureRegion[] explosionFrames = new TextureRegion[16];

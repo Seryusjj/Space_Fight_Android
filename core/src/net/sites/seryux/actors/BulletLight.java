@@ -1,8 +1,8 @@
 package net.sites.seryux.actors;
 
 import net.sites.seryux.utils.Actor;
+import net.sites.seryux.utils.AssetsManager;
 import net.sites.seryux.utils.CountDownTimer;
-import net.sites.seryux.utils.Sprite;
 
 class BulletLight extends Actor {
 
@@ -12,7 +12,7 @@ class BulletLight extends Actor {
 	private CountDownTimer timer;
 
 	public BulletLight(Actor parent) {
-		super(new Sprite("effects/laserRedShot.png", 0, 0, 66, 64));
+		super(AssetsManager.getManager().getRedLaserLightSprite());
 
 		setSize(64, 64);
 		this.parent = parent;
@@ -31,16 +31,17 @@ class BulletLight extends Actor {
 	public void toggleColor() {
 		toggle = !toggle;
 		if (toggle) {
-			setSprite(new Sprite("effects/laserGreenShot.png", 0, 0, 66, 64));
-		}else{
-			setSprite(new Sprite("effects/laserRedShot.png", 0, 0, 66, 64));
-			
+			setSprite(AssetsManager.getManager().getGreenLaserLightSprite());
+		} else {
+			setSprite(AssetsManager.getManager().getRedLaserLightSprite());
+
 		}
 	}
 
 	public void setPositionCenter() {
-		float centerXBulletLight = (getSprite().getX()+getSprite().getWidth()/2);
-		float centerX = parent.getX() + (parent.getWidth() / 2) - centerXBulletLight;
+		float centerXBulletLight = (getSprite().getX() + getSprite().getWidth() / 2);
+		float centerX = parent.getX() + (parent.getWidth() / 2)
+				- centerXBulletLight;
 
 		this.setX(centerX);
 		this.setY(parent.getSprite().getBounds().get(0).y
@@ -48,9 +49,10 @@ class BulletLight extends Actor {
 	}
 
 	public void setPositionRight() {
-		float centerXBulletLight = (getSprite().getX()+getSprite().getWidth()/2);
+		float centerXBulletLight = (getSprite().getX() + getSprite().getWidth() / 2);
 		float centerX = parent.getSprite().getBounds().get(1).getX()
-				+ parent.getSprite().getBounds().get(1).getWidth()-centerXBulletLight;
+				+ parent.getSprite().getBounds().get(1).getWidth()
+				- centerXBulletLight;
 
 		this.setX(centerX);
 		this.setY(parent.getSprite().getBounds().get(1).y
@@ -58,8 +60,9 @@ class BulletLight extends Actor {
 	}
 
 	public void setPositionLeft() {
-		float centerXBulletLight = (getSprite().getX()+getSprite().getWidth()/2);
-		float centerX = parent.getSprite().getBounds().get(1).getX()-centerXBulletLight;
+		float centerXBulletLight = (getSprite().getX() + getSprite().getWidth() / 2);
+		float centerX = parent.getSprite().getBounds().get(1).getX()
+				- centerXBulletLight;
 
 		this.setX(centerX);
 		this.setY(parent.getSprite().getBounds().get(1).y

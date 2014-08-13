@@ -2,46 +2,42 @@ package net.sites.seryux;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+
+
 
 import net.sites.seryux.actors.Background;
+import net.sites.seryux.utils.AssetsManager;
 import net.sites.seryux.utils.GameScreen;
-import net.sites.seryux.utils.GameState;
 
-public class MainMenuGameScreen extends GameScreen {
+public class LoadingScreen extends GameScreen {
 
 	private Table table;
 	private Skin skin;
-	private TextButton startGame;
+	private Label startGame;
 	private Background bg;
+
+	private String text;
 
 	// ImageButton
 
-	public MainMenuGameScreen(MyGdxGame game) {
+	public LoadingScreen(MyGdxGame game) {
 		super(game);
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		table = new Table();
 		table.setFillParent(true);
-		//Label label = new Label("Sergio", skin);
-		startGame = new TextButton("Start", skin);
-		
-		startGame.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				GameState.getGameState().ready = true;
-				return true;
-			}
-		});
+		text = "Loading ... ";
+		// Label label = new Label("Sergio", skin);
+		startGame = new Label(
+				text + AssetsManager.getManager().getPercentage(), skin);
 
 		table.add(startGame).width(100).height(80);
-		//table.row();
-		//table.add(label);
+		// table.row();
+		// table.add(label);
 
-		
 		bg = new Background(escenario);
 		// input proccessor ahora es el escenario
 		// si no los botones no se actulizan como funcionalidad
@@ -57,7 +53,13 @@ public class MainMenuGameScreen extends GameScreen {
 		escenario.draw();
 		escenario.act();
 		bg.moveBackground();
+		startGame.setText("text " + AssetsManager.getManager().getPercentage()
+				* 100 + "%");
 
+		if (AssetsManager.getManager().update()) {
+			game.mainScreen = new MainGameScreen(game);
+			game.setScreen(game.mainScreen);
+		}
 	}
 
 }

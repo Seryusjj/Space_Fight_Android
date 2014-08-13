@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -20,6 +21,7 @@ public class GameOverGameScreen extends GameScreen{
 	private Skin skin;
 	private TextButton startGame;
 	private Background bg;
+	private Label score;
 
 	// ImageButton
 
@@ -35,6 +37,7 @@ public class GameOverGameScreen extends GameScreen{
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				GameState.getGameState().ready = true;
+				
 				return true;
 			}
 		});
@@ -48,6 +51,11 @@ public class GameOverGameScreen extends GameScreen{
 		// input proccessor ahora es el escenario
 		// si no los botones no se actulizan como funcionalidad
 		escenario.addActor(table);
+		
+		score = new Label("Score: " + GameState.getGameState().score, skin);
+		score.setPosition(50, Gdx.graphics.getHeight() - 50);
+		escenario.addActor(score);
+		
 		Gdx.input.setInputProcessor(escenario);
 
 	}
@@ -56,6 +64,7 @@ public class GameOverGameScreen extends GameScreen{
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(1f, 0f, 0f, 1);
+		score.setText("Score: " + GameState.getGameState().score);
 		escenario.draw();
 		escenario.act();
 		bg.moveBackground();

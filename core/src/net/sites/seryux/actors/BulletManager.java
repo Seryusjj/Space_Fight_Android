@@ -34,7 +34,7 @@ public class BulletManager extends Actor {
 			escenario.addActor(bullets[i]);
 			escenario.addActor(bulletLights[i]);
 		}
-		timer = new CountDownTimer(0.5f);
+		timer = new CountDownTimer(0.7f);
 		this.parent =parent;
 
 	}

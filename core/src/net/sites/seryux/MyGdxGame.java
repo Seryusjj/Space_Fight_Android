@@ -7,16 +7,16 @@ import com.badlogic.gdx.Game;
 
 public class MyGdxGame extends Game {
 
-	private MainMenuGameScreen mainMenu;
-	private MainGameScreen mainScreen;
+	private LoadingScreen mainMenu;
+	
+	protected MainGameScreen mainScreen;
 
 	private GameOverGameScreen gameOver;
 	private CountDownTimer timer;
 
 	@Override
 	public void create() {
-		
-		mainMenu = new MainMenuGameScreen(this);
+		mainMenu = new LoadingScreen(this);
 		
 		setScreen(mainMenu);
 		timer = new CountDownTimer(2);
@@ -28,18 +28,20 @@ public class MyGdxGame extends Game {
 		if (GameState.getGameState().gameOver) {
 			if (timer.hasFinished()) {
 				timer.reset();
-				if(gameOver==null){
+				if (gameOver == null) {
 					gameOver = new GameOverGameScreen(this);
 				}
-				mainScreen.reset();
-				GameState.getGameState().resetGameState();
+				GameState.getGameState().gameOver = false;//reset
 				setScreen(gameOver);
+				
+				
 			}
 		} else if (GameState.getGameState().ready) {
-			GameState.getGameState().resetGameState();
+			GameState.getGameState().ready = false; //reset
+			mainScreen.reset();
 			if (mainScreen == null) {
 				mainScreen = new MainGameScreen(this);
-			} 
+			}
 
 			setScreen(mainScreen);
 		}

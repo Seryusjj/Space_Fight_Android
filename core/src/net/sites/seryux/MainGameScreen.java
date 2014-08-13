@@ -157,7 +157,7 @@ public class MainGameScreen extends GameScreen {
 		nave.reset();
 		explosion.reset();
 		shield.setVisible(true);
-		GameState.getGameState().score = 0;
+		GameState.getGameState().resetGameState();
 
 	}
 

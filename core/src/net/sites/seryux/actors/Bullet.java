@@ -1,8 +1,9 @@
 package net.sites.seryux.actors;
 
 import com.badlogic.gdx.Gdx;
+
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.Sprite;
+import net.sites.seryux.utils.AssetsManager;
 
   class Bullet extends Actor {
 
@@ -12,7 +13,7 @@ import net.sites.seryux.utils.Sprite;
 	private boolean toggle;
 
 	public Bullet(Actor parent) {
-		super(new Sprite("effects/laserRed.png", 0, 0, 9, 32));
+		super(AssetsManager.getManager().getRedLaserSprite());
 		//setDebug(parent.isDebug(), new Color(1, 0, 0, 1));
 		setSize(9, 32);
 		setSpeed(300);
@@ -24,10 +25,10 @@ import net.sites.seryux.utils.Sprite;
 	public void toggleColor(){
 		toggle = !toggle;
 		if(toggle){
-			setSprite(new Sprite("effects/laserGreen.png", 0, 0, 9, 32));
+			setSprite(AssetsManager.getManager().getGreenLaserSprite());
 		}else{
 			
-			setSprite(new Sprite("effects/laserRed.png", 0, 0, 9, 32));
+			setSprite(AssetsManager.getManager().getRedLaserSprite());
 		}
 	}
 

@@ -3,8 +3,7 @@ package net.sites.seryux.actors;
 import java.util.Random;
 
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.Sprite;
-
+import net.sites.seryux.utils.AssetsManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,17 +24,18 @@ public class Asteroid extends Actor {
 	private static final int ALTO = 256;
 
 	public Asteroid() {
-		super(new Sprite("asteroid/AsteroidSheet.png", 0, 0, 128, 128));
+		super(AssetsManager.getManager().getAsteroidSprite());
 		createAnim();
 		setBreaked(false);
-		//setDebug(true, new Color(1, 0, 0, 1));
+		// setDebug(true, new Color(1, 0, 0, 1));
 		speed = 150;
 		rm = new Random();
 		float scale = rm.nextFloat();
 		if (scale < 0.6f)
 			scale += 0.6f;
 		setSize(128 * scale, 128 * scale);
-		setPosition(rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
+		setPosition(
+				rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
 				Gdx.graphics.getHeight());
 
 	}
@@ -96,12 +96,14 @@ public class Asteroid extends Actor {
 		setPosition(getX(), getY() - speed * Gdx.graphics.getDeltaTime());
 		if (getY() <= (0 - getHeight())) {
 
-			setPosition(rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
+			setPosition(
+					rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
 					Gdx.graphics.getHeight());
 		}
 
 		if (isVisible() == false) {
-			setPosition(rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
+			setPosition(
+					rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
 					Gdx.graphics.getHeight());
 			playRotation();
 			setVisible(true);

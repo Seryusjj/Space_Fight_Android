@@ -1,11 +1,9 @@
 package net.sites.seryux.actors;
 
-
-
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
+import net.sites.seryux.utils.AssetsManager;
 import net.sites.seryux.utils.CountDownTimer;
-import net.sites.seryux.utils.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -25,7 +23,7 @@ public class Ship extends Actor {
 	private boolean breaked;
 
 	public Ship(VirtualController controlador) {
-		super(new Sprite("spaceship/ship.png", 0, 0, 128, 128));
+		super(AssetsManager.getManager().getShipTexture());
 		getSprite().setRegion(IDLE, 0, 128, 128);
 		setSize(128, 128);
 
@@ -54,9 +52,9 @@ public class Ship extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 
-		if(!canDead && timer.hasFinished()){
+		if (!canDead && timer.hasFinished()) {
 			canDead = true;
-			
+
 		}
 		if (!(breaked)) {
 
