@@ -15,8 +15,8 @@ public class MyGdxGame extends Game {
 
 	@Override
 	public void create() {
+		
 		mainMenu = new MainMenuGameScreen(this);
-	
 		
 		setScreen(mainMenu);
 		timer = new CountDownTimer(2);
@@ -27,19 +27,20 @@ public class MyGdxGame extends Game {
 		super.render();
 		if (GameState.getGameState().gameOver) {
 			if (timer.hasFinished()) {
-				gameOver = new GameOverGameScreen(this);
+				timer.reset();
+				if(gameOver==null){
+					gameOver = new GameOverGameScreen(this);
+				}
+				mainScreen.reset();
 				GameState.getGameState().resetGameState();
 				setScreen(gameOver);
 			}
 		} else if (GameState.getGameState().ready) {
 			GameState.getGameState().resetGameState();
-			if (mainScreen != null) {
-				mainScreen.dispose();
-			} else {
+			if (mainScreen == null) {
+				mainScreen = new MainGameScreen(this);
+			} 
 
-				mainMenu.dispose();
-			}
-			mainScreen = new MainGameScreen(this);
 			setScreen(mainScreen);
 		}
 	}

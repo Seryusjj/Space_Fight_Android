@@ -9,14 +9,18 @@ import net.sites.seryux.utils.GameState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.async.AsyncTask;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+public class MainGameScreen extends GameScreen {
 
-public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScreen> {
+	// UI elements
+	private Skin skin;
+	private Label score;
 
-	
 	private Asteroid[] asteroids;
 	private Ship nave;
+	private Shield shield;
 	private Explosion explosion;
 	private Background bg;
 	private VirtualController controlador;
@@ -25,26 +29,43 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 
 	public MainGameScreen(MyGdxGame game) {
 		super(game);
-		initialize();
-		
+
+		initializeGame();
+		initializeUI();
+
 	}
 
+	private void initializeUI() {
+		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
+		score = new Label("Score: " + GameState.getGameState().score, skin);
+		score.setPosition(50, Gdx.graphics.getHeight() - 50);
+		escenario.addActor(score);
+	}
 
-	public void initialize(){
+	private void initShip() {
 		controlador = new VirtualController();
 		nave = new Ship(controlador);
 		entrada = new ShipControlsInput(controlador, nave);
 		explosion = new Explosion();
+		shield = new Shield(nave);
+	}
+
+	private void initializeGame() {
+
+		initShip();
+
 		bg = new Background(escenario);
 		initializeAsteroids();
 		escenario.addActor(nave);
+		escenario.addActor(shield);
 		bulletManager = new BulletManager(escenario, nave);
 		escenario.addActor(bulletManager);
-		//bulletManager.toggleColor();
+		escenario.addActor(explosion);
 		bulletManager.currentShootType = BulletManager.ShootType.Two;
 
 	}
+
 	private void initializeAsteroids() {
 		asteroids = new Asteroid[10];
 		for (int i = 0; i < asteroids.length; i++) {
@@ -55,42 +76,44 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 	}
 
 	@Override
-	public void show() {
-		
-	}
-
-	@Override
 	public void render(float delta) {
 		renderizado(delta);
 
 	}
 
-
-
-	private void renderizado(float delta) {
+	private void updateEscenario() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
 
 		escenario.draw();
 		bg.moveBackground();
-		
+
 		escenario.act();
-		
+	}
+
+	private void updateGameState() {
 		entrada.upadte();
 		collideAsteroidsAndBullets();
 		collideShipAndAsteroids();
+		score.setText("Score: " + GameState.getGameState().score);
+	}
+
+	private void renderizado(float delta) {
+		updateEscenario();
+		updateGameState();
+
 	}
 
 	private void collideShipAndAsteroids() {
-		if (nave.isVisible()) {
+		if (nave.isVisible() && nave.canDead) {
 			for (int i = 0; i < asteroids.length; i++) {
 				if (asteroids[i].isVisible() && !asteroids[i].isBreaked()) {
 					if (nave.getSprite().isCollidingBoxLevel(
 							asteroids[i].getSprite())) {
 						asteroids[i].breakAnim();
-						nave.breakShip();
+						nave.setBreaked(true);
 						explosion.setPosition(nave.getX(), nave.getY());
-						escenario.addActor(explosion);
+						explosion.setVisible(true);
 						GameState.getGameState().gameOver = true;
 					}
 				}
@@ -111,7 +134,7 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 					// lanza la bala fuera de la pantalla
 					bullet.setPosition(0, Gdx.graphics.getHeight());
 					// bullet.setVisible(false) crea un bug, no usar
-					GameState.getGameState().score+=10;
+					GameState.getGameState().score += 10;
 
 					break;
 				}
@@ -130,25 +153,12 @@ public class MainGameScreen extends GameScreen implements AsyncTask<MainGameScre
 
 	}
 
+	public void reset() {
+		nave.reset();
+		explosion.reset();
+		shield.setVisible(true);
+		GameState.getGameState().score = 0;
 
-
-	@Override
-	public MainGameScreen call() throws Exception {
-		initialize();
-		
-		return this;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

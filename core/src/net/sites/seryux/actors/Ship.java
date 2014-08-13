@@ -1,9 +1,11 @@
 package net.sites.seryux.actors;
 
+
+
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
+import net.sites.seryux.utils.CountDownTimer;
 import net.sites.seryux.utils.Sprite;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -13,6 +15,8 @@ public class Ship extends Actor {
 	private int speed = 300;
 
 	private VirtualController controlador;
+	public boolean canDead;
+	private CountDownTimer timer;
 
 	private static final int LEFT = 0;
 	private static final int IDLE = 128;
@@ -29,12 +33,14 @@ public class Ship extends Actor {
 				(Gdx.graphics.getHeight() - getSprite().getHeight()) / 2);
 
 		this.controlador = controlador;
-		//queremos que la nave tenga dos huesos
-		getSprite().addBound();//añadimos uno adicional
-		//setDebug(true, new Color(1f, 0, 0, 1));
+		// queremos que la nave tenga dos huesos
+		getSprite().addBound();// añadimos uno adicional
+		// setDebug(true, new Color(1f, 0, 0, 1));
 
 		breaked = false;
-		
+		canDead = false;
+		timer = new CountDownTimer(5f);
+
 	}
 
 	public boolean isBreaked() {
@@ -48,6 +54,10 @@ public class Ship extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 
+		if(!canDead && timer.hasFinished()){
+			canDead = true;
+			
+		}
 		if (!(breaked)) {
 
 			batch.draw(getSprite(), getX(), getY(), getOriginX(), getOriginY(),
@@ -59,25 +69,29 @@ public class Ship extends Actor {
 
 	}
 
-	public void breakShip() {
-		setBreaked(true);
-	}
-
 	public void act(float delta) {
 		if (!isBreaked()) {
 			upadateMovement();
 		}
 		super.act(delta);
-	
+
 	}
 
-	protected void updateBounds(){
-		//collider alas
-		getSprite().getBounds().get(1).set(getX()+20,getY()+45,getWidth()-35,getHeight()-100);
-		//collider body
-		getSprite().getBounds().get(0).set(getX()+50,getY()+30,getWidth()-100,getHeight()-55);
+	protected void updateBounds() {
+		// collider alas
+		getSprite()
+				.getBounds()
+				.get(1)
+				.set(getX() + 20, getY() + 45, getWidth() - 35,
+						getHeight() - 100);
+		// collider body
+		getSprite()
+				.getBounds()
+				.get(0)
+				.set(getX() + 50, getY() + 30, getWidth() - 100,
+						getHeight() - 55);
 	}
-	
+
 	private void moveLeft() {
 		getSprite().setRegion(LEFT, 0, 128, 128);
 		addAction(Actions.moveBy(-speed * Gdx.graphics.getDeltaTime(), 0));
@@ -144,6 +158,14 @@ public class Ship extends Actor {
 		}
 	}
 
+	public void reset() {
+		setPosition((Gdx.graphics.getWidth() - getSprite().getWidth()) / 2,
+				(Gdx.graphics.getHeight() - getSprite().getHeight()) / 2);
+		breaked = false;
+		setVisible(true);
+		canDead = false;
+		timer.reset();
 
+	}
 
 }

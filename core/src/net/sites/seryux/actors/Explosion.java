@@ -17,6 +17,7 @@ public class Explosion extends Actor {
 		super(new Sprite("effects/explosionSpriteSheet.png", 0, 0, 64, 64));
 		setSize(128, 128);
 		createExplosionAnim();
+		setVisible(false);
 	}
 
 	private void createExplosionAnim() {
@@ -45,7 +46,7 @@ public class Explosion extends Actor {
 		super.draw(batch, parentAlpha);
 		
 		
-		if (!( this.explosion.isAnimationFinished(duration))) {
+		if (!( this.explosion.isAnimationFinished(duration))&& isVisible()) {
 			play();
 			batch.draw(getSprite(), getX(), getY(), getOriginX(), getOriginY(),
 					getWidth(), getHeight(), getScaleX(), getScaleY(),
@@ -59,7 +60,12 @@ public class Explosion extends Actor {
 	private void play() {
 		duration += Gdx.graphics.getDeltaTime();
 		getSprite().setRegion(explosion.getKeyFrame(duration));
-
+	}
+	
+	public void reset(){
+		duration=0;
+		setVisible(false);
+		
 	}
 
 }

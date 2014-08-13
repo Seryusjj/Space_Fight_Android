@@ -22,7 +22,7 @@ public class CountDownTimer {
 			currentTime += delta;
 		} else {
 
-			currentTime = 0;
+
 			return true;
 		}
 		return false;
@@ -34,9 +34,13 @@ public class CountDownTimer {
 			currentTime += Gdx.graphics.getDeltaTime();
 		} else {
 
-			currentTime = 0;
+
 			return true;
 		}
 		return false;
+	}
+	
+	public void reset(){
+		currentTime = 0;
 	}
 }

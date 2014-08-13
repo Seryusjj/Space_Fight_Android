@@ -42,6 +42,7 @@ public class BulletManager extends Actor {
 	public void act(float delta) {
 
 		if(parent.isVisible() && timer.hasFinished(delta)){
+			timer.reset();
 			if (currentShootType.equals(ShootType.One)) {
 				shootOne();
 			} else if (currentShootType.equals(ShootType.Two)) {
