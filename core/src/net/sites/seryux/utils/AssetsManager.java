@@ -27,7 +27,8 @@ public class AssetsManager {
 		assets.load("effects/explosionSpriteSheet.png", Texture.class);
 		assets.load("effects/shield.png", Texture.class);
 		assets.load("spaceship/ship.png", Texture.class);
-
+		assets.load("effects/laserUpgradeRed.png", Texture.class);
+		assets.load("effects/laserUpgradeGreen.png", Texture.class);
 	}
 
 	public float getPercentage() {
@@ -67,31 +68,46 @@ public class AssetsManager {
 	}
 
 	public Sprite getGreenLaserSprite() {
-		return new Sprite(assets.get("effects/laserGreen.png", Texture.class), 0, 0, 9, 32);
-		
+		return new Sprite(assets.get("effects/laserGreen.png", Texture.class),
+				0, 0, 9, 32);
+
 	}
 
 	public Sprite getRedLaserLightSprite() {
-		return new Sprite(assets.get("effects/laserRedShot.png", Texture.class),
-				0, 0, 66, 64);
+		return new Sprite(
+				assets.get("effects/laserRedShot.png", Texture.class), 0, 0,
+				66, 64);
 	}
 
 	public Sprite getGreenLaserLightSprite() {
-		return new Sprite(assets.get("effects/laserGreenShot.png", Texture.class), 0, 0, 66, 64);
+		return new Sprite(assets.get("effects/laserGreenShot.png",
+				Texture.class), 0, 0, 66, 64);
 	}
 
 	public Sprite getExplosionSprite() {
-		return new Sprite(assets.get("effects/explosionSpriteSheet.png", Texture.class), 0, 0, 64, 64); 
+		return new Sprite(assets.get("effects/explosionSpriteSheet.png",
+				Texture.class), 0, 0, 64, 64);
 	}
 
 	public Sprite getShieldSprite() {
-		return new Sprite(assets.get("effects/shield.png", Texture.class), 0, 0, 128, 128);
+		return new Sprite(assets.get("effects/shield.png", Texture.class), 0,
+				0, 128, 128);
 
 	}
 
 	public Sprite getShipTexture() {
-		return new Sprite(assets.get("spaceship/ship.png", Texture.class), 0, 0,
-				128, 128);
+		return new Sprite(assets.get("spaceship/ship.png", Texture.class), 0,
+				0, 128, 128);
+	}
+	
+	public Sprite getLaserUpdateRed(){
+		return new Sprite(assets.get("effects/laserUpgradeRed.png", Texture.class), 0,
+				0, 128, 128);
+	}
+	
+	public Sprite getLaserUpdateGreen(){
+		return new Sprite(assets.get("effects/laserUpgradeGreen.png", Texture.class), 0,
+				0, 128, 128);
 	}
 
 }

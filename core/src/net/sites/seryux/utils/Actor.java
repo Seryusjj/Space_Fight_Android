@@ -36,9 +36,10 @@ public class Actor extends com.badlogic.gdx.scenes.scene2d.Actor {
 		Color col = getColor();
 
 		batch.setColor(col.r, col.g, col.b, col.a * parentAlpha);
-		this.shapeRender.setProjectionMatrix(batch.getProjectionMatrix());
-		this.shapeRender.setTransformMatrix(batch.getTransformMatrix());
-		
+		if (isDebug()) {
+			this.shapeRender.setProjectionMatrix(batch.getProjectionMatrix());
+			this.shapeRender.setTransformMatrix(batch.getTransformMatrix());
+		}
 		batch.draw(getSprite(), getX(), getY(), getOriginX(), getOriginY(),
 				getWidth(), getHeight(), getScaleX(), getScaleY(),
 				getRotation());
@@ -48,17 +49,17 @@ public class Actor extends com.badlogic.gdx.scenes.scene2d.Actor {
 	protected void updateBounds() {
 		for (Rectangle rect : sprite.getBounds()) {
 			rect.set(getX(), getY(), getWidth(), getHeight());
-
 		}
 	}
 
 	protected float getScaledValueX(float value) {
 		return getScaleX() * value;
 	}
-	
-	protected float getScaledValueY(float value){
-		return getScaleY()*value;
+
+	protected float getScaledValueY(float value) {
+		return getScaleY() * value;
 	}
+
 	public Sprite getSprite() {
 		return sprite;
 	}

@@ -1,4 +1,4 @@
-package net.sites.seryux.actors;
+package net.sites.seryux.actors.multiComponentActors;
 
 import com.badlogic.gdx.Gdx;
 
@@ -10,9 +10,9 @@ import net.sites.seryux.utils.AssetsManager;
 	private double speed;
 	private Actor parent;
 	
-	private boolean toggle;
 
-	public Bullet(Actor parent) {
+
+	protected Bullet(Actor parent) {
 		super(AssetsManager.getManager().getRedLaserSprite());
 		//setDebug(parent.isDebug(), new Color(1, 0, 0, 1));
 		setSize(9, 32);
@@ -22,14 +22,12 @@ import net.sites.seryux.utils.AssetsManager;
 		setPosition(Gdx.graphics.getWidth()*2,Gdx.graphics.getHeight()*2);
 	}
 
-	public void toggleColor(){
-		toggle = !toggle;
-		if(toggle){
-			setSprite(AssetsManager.getManager().getGreenLaserSprite());
-		}else{
-			
-			setSprite(AssetsManager.getManager().getRedLaserSprite());
-		}
+	protected void setColorRed(){
+		setSprite(AssetsManager.getManager().getRedLaserSprite());
+	}
+	
+	protected void setColorGreen(){
+		setSprite(AssetsManager.getManager().getGreenLaserSprite());
 	}
 
 
@@ -45,7 +43,7 @@ import net.sites.seryux.utils.AssetsManager;
 	
 
 	
-	public void setPositionCenter() {
+	protected void setPositionCenter() {
 		float centerXBulletLight = (getSprite().getX()+getSprite().getWidth()/2);
 		float centerX = parent.getX() + (parent.getWidth() / 2) - centerXBulletLight;
 
@@ -54,7 +52,7 @@ import net.sites.seryux.utils.AssetsManager;
 				+ parent.getSprite().getBounds().get(0).height);
 	}
 
-	public void setPositionRight() {
+	protected void setPositionRight() {
 		float centerXBulletLight = (getSprite().getX()+getSprite().getWidth()/2);
 		float centerX = parent.getSprite().getBounds().get(1).getX()
 				+ parent.getSprite().getBounds().get(1).getWidth()-centerXBulletLight;
@@ -64,7 +62,7 @@ import net.sites.seryux.utils.AssetsManager;
 				+ parent.getSprite().getBounds().get(1).height);
 	}
 
-	public void setPositionLeft() {
+	protected void setPositionLeft() {
 		float centerXBulletLight = (getSprite().getX()+getSprite().getWidth()/2);
 		float centerX = parent.getSprite().getBounds().get(1).getX()-centerXBulletLight;
 
@@ -73,11 +71,11 @@ import net.sites.seryux.utils.AssetsManager;
 				+ parent.getSprite().getBounds().get(1).height);
 	}
 
-	public double getSpeed() {
+	protected double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(double speed) {
+	protected void setSpeed(double speed) {
 		this.speed = speed;
 	}
 

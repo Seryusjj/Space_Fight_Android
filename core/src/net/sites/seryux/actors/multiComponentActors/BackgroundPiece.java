@@ -1,4 +1,4 @@
-package net.sites.seryux.actors;
+package net.sites.seryux.actors.multiComponentActors;
 
 import com.badlogic.gdx.Gdx;
 import net.sites.seryux.utils.Actor;
@@ -11,20 +11,20 @@ class BackgroundPiece extends Actor {
 	
 
 
-	public BackgroundPiece() {
+	protected BackgroundPiece() {
 		super(AssetsManager.getManager().getBackgroundLvl1Sprite());
 		setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		speed =250;
 	}
 	
-	public void updateInitToDown(){
+	protected void updateInitToDown(){
 		setPosition(getX(), getY()-speed*Gdx.graphics.getDeltaTime());
 		if(getY()<=-Gdx.graphics.getHeight()){
 			setY(0);
 		}
 	}
 	
-	public void updateTopToInit(){
+	protected void updateTopToInit(){
 		setPosition(getX(), getY()-speed*Gdx.graphics.getDeltaTime());
 		if(getY()<=0){
 			setY(Gdx.graphics.getHeight());

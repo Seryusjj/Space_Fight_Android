@@ -1,4 +1,4 @@
-package net.sites.seryux.actors;
+package net.sites.seryux.actors.multiComponentActors;
 
 import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.AssetsManager;
@@ -7,11 +7,10 @@ import net.sites.seryux.utils.CountDownTimer;
 class BulletLight extends Actor {
 
 	private Actor parent;
-	private boolean toggle;
-	boolean shoot;
+	protected boolean shoot;
 	private CountDownTimer timer;
 
-	public BulletLight(Actor parent) {
+	protected BulletLight(Actor parent) {
 		super(AssetsManager.getManager().getRedLaserLightSprite());
 
 		setSize(64, 64);
@@ -27,18 +26,18 @@ class BulletLight extends Actor {
 		}
 		super.act(delta);
 	}
-
-	public void toggleColor() {
-		toggle = !toggle;
-		if (toggle) {
-			setSprite(AssetsManager.getManager().getGreenLaserLightSprite());
-		} else {
-			setSprite(AssetsManager.getManager().getRedLaserLightSprite());
-
-		}
+	
+	protected void setColorRed(){
+		setSprite(AssetsManager.getManager().getRedLaserLightSprite());
+	}
+	
+	protected void setColorGreen(){
+		setSprite(AssetsManager.getManager().getGreenLaserLightSprite());
 	}
 
-	public void setPositionCenter() {
+
+
+	protected void setPositionCenter() {
 		float centerXBulletLight = (getSprite().getX() + getSprite().getWidth() / 2);
 		float centerX = parent.getX() + (parent.getWidth() / 2)
 				- centerXBulletLight;
@@ -48,7 +47,7 @@ class BulletLight extends Actor {
 				+ parent.getSprite().getBounds().get(0).height);
 	}
 
-	public void setPositionRight() {
+	protected void setPositionRight() {
 		float centerXBulletLight = (getSprite().getX() + getSprite().getWidth() / 2);
 		float centerX = parent.getSprite().getBounds().get(1).getX()
 				+ parent.getSprite().getBounds().get(1).getWidth()
@@ -59,7 +58,7 @@ class BulletLight extends Actor {
 				+ parent.getSprite().getBounds().get(1).height);
 	}
 
-	public void setPositionLeft() {
+	protected void setPositionLeft() {
 		float centerXBulletLight = (getSprite().getX() + getSprite().getWidth() / 2);
 		float centerX = parent.getSprite().getBounds().get(1).getX()
 				- centerXBulletLight;

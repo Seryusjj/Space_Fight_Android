@@ -13,6 +13,8 @@ public class MyGdxGame extends Game {
 
 	private GameOverGameScreen gameOver;
 	private CountDownTimer timer;
+	
+
 
 	@Override
 	public void create() {
@@ -45,6 +47,18 @@ public class MyGdxGame extends Game {
 
 			setScreen(mainScreen);
 		}
+
+	}
+	
+	@Override
+	public void dispose() {
+		getScreen().pause();
+		super.dispose();
+	}
+	@Override
+	public void resume() {
+		getScreen().resume();
+		super.resume();
 	}
 
 }

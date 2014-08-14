@@ -15,7 +15,7 @@ public class Shield extends Actor {
 
 	public void act(float delta) {
 		if (isVisible()) {
-			setCenterPosition(parent.getCenterX(), parent.getCenterY());
+			setCenterPosition(parent.getCenterX(), parent.getCenterY()+10);
 			if(parent.canDead){
 				setVisible(false);
 			}

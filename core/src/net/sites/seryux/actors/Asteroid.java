@@ -160,5 +160,7 @@ public class Asteroid extends Actor {
 	public void setCurrentAnimation(Animation currentAnimation) {
 		this.currentAnimation = currentAnimation;
 	}
+	
+
 
 }

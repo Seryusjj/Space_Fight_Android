@@ -153,6 +153,8 @@ public class Ship extends Actor {
 			moveRight();
 		} else if (controlador.moverIzquierda) {
 			moveLeft();
+		} else {
+			getSprite().setRegion(IDLE, 0, 128, 128);
 		}
 	}
 

@@ -7,14 +7,17 @@ package net.sites.seryux.utils;
 public class GameState {
 	private static GameState state = new GameState();
 
+	public boolean pause;
 	public int score;
 	public boolean gameOver ;
 	public boolean ready ;
 	
+	
+	
 
 
 	private GameState() {
-		
+		pause = false;
 		resetGameState();
 		
 	}
@@ -30,6 +33,7 @@ public class GameState {
 		score =0;
 		gameOver =false;
 		ready = false;
+		pause = false;
 	}
 
 }

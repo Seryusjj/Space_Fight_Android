@@ -3,21 +3,21 @@ package net.sites.seryux;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-
-
-
-import net.sites.seryux.actors.Background;
+import net.sites.seryux.actors.multiComponentActors.Background;
 import net.sites.seryux.utils.AssetsManager;
 import net.sites.seryux.utils.GameScreen;
+import net.sites.seryux.utils.GameState;
 
 public class LoadingScreen extends GameScreen {
 
 	private Table table;
 	private Skin skin;
 	private Label startGame;
+	private ProgressBar bar;
 	private Background bg;
 
 	private String text;
@@ -31,12 +31,13 @@ public class LoadingScreen extends GameScreen {
 		table.setFillParent(true);
 		text = "Loading ... ";
 		// Label label = new Label("Sergio", skin);
-		startGame = new Label(
-				text + AssetsManager.getManager().getPercentage(), skin);
+		startGame = new Label(text, skin);
+		bar = new ProgressBar(0f, 1f, 0.01f, false, skin);
 
-		table.add(startGame).width(100).height(80);
-		// table.row();
-		// table.add(label);
+		table.add(startGame);
+		table.row();
+		table.add(bar);
+
 
 		bg = new Background(escenario);
 		// input proccessor ahora es el escenario
@@ -53,10 +54,10 @@ public class LoadingScreen extends GameScreen {
 		escenario.draw();
 		escenario.act();
 		bg.moveBackground();
-		startGame.setText("text " + AssetsManager.getManager().getPercentage()
-				* 100 + "%");
+		startGame.setText(text);
+		bar.setValue(AssetsManager.getManager().getPercentage());
 
-		if (AssetsManager.getManager().update()) {
+		if (AssetsManager.getManager().update() && !GameState.getGameState().pause) {
 			game.mainScreen = new MainGameScreen(game);
 			game.setScreen(game.mainScreen);
 		}

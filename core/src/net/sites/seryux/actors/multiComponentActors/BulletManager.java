@@ -1,4 +1,4 @@
-package net.sites.seryux.actors;
+package net.sites.seryux.actors.multiComponentActors;
 
 import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.CountDownTimer;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class BulletManager extends Actor {
-	private int numBullets = 40;
+	private int numBullets = 30;
 	@SuppressWarnings("unused")
 	private Stage escenario;
 	private Bullet[] bullets;
@@ -55,17 +55,23 @@ public class BulletManager extends Actor {
 	}
 
 	public void draw(Batch batch, float parentAlpha) {
-		// no se dibuja nada, dibuja los hijos
+		// dont't draw anything
 	}
 
 	protected void updateBounds() {
-		//
+		//since it has no sprite, do not update the bounds
 	}
 
-	public void toggleColor() {
+	public void setColorRed(){
 		for (int i = 0; i < numBullets; i++) {
-			bullets[i].toggleColor();
-			bulletLights[i].toggleColor();
+			bullets[i].setColorRed();
+			bulletLights[i].setColorRed();
+		}
+	}
+	public void setColorGreen() {
+		for (int i = 0; i < numBullets; i++) {
+			bullets[i].setColorGreen();
+			bulletLights[i].setColorGreen();
 		}
 	}
 
@@ -77,10 +83,10 @@ public class BulletManager extends Actor {
 
 	private void shootOne() {
 		int index = getBulletIndex();
-		bullets[index].setVisible(true);
 		bullets[index].setPositionCenter();
-		bulletLights[index].setVisible(true);
+		bullets[index].setVisible(true);
 		bulletLights[index].setPositionCenter();
+		bulletLights[index].setVisible(true);
 	}
 
 	private void shootTwo() {
@@ -105,18 +111,14 @@ public class BulletManager extends Actor {
 		bulletLights[index].setVisible(true);
 		
 		index = getBulletIndex();
-		
 		bullets[index].setPositionRight();
 		bullets[index].setVisible(true);
-		
 		bulletLights[index].setPositionRight();
 		bulletLights[index].setVisible(true);
-		index = getBulletIndex();
 		
+		index = getBulletIndex();
 		bullets[index].setPositionCenter();
 		bullets[index].setVisible(true);
-		
-		
 		bulletLights[index].setPositionCenter();
 		bulletLights[index].setVisible(true);
 	}
@@ -127,6 +129,12 @@ public class BulletManager extends Actor {
 
 	public Actor[] getBulletLights() {
 		return bulletLights;
+	}
+
+	public void reset() {
+		currentShootType = ShootType.One;
+		setColorRed();
+		
 	}
 
 }

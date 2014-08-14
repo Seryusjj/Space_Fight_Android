@@ -1,6 +1,8 @@
 package net.sites.seryux;
 
 import net.sites.seryux.actors.*;
+import net.sites.seryux.actors.multiComponentActors.Background;
+import net.sites.seryux.actors.multiComponentActors.BulletManager;
 import net.sites.seryux.input.ShipControlsInput;
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
@@ -20,6 +22,7 @@ public class MainGameScreen extends GameScreen {
 
 	private Asteroid[] asteroids;
 	private Ship nave;
+	private LaserUpgrade upgrade;
 	private Shield shield;
 	private Explosion explosion;
 	private Background bg;
@@ -54,7 +57,7 @@ public class MainGameScreen extends GameScreen {
 	private void initializeGame() {
 
 		initShip();
-
+		upgrade = new LaserUpgrade();
 		bg = new Background(escenario);
 		initializeAsteroids();
 		escenario.addActor(nave);
@@ -62,10 +65,12 @@ public class MainGameScreen extends GameScreen {
 		bulletManager = new BulletManager(escenario, nave);
 		escenario.addActor(bulletManager);
 		escenario.addActor(explosion);
-		bulletManager.currentShootType = BulletManager.ShootType.Two;
+		escenario.addActor(upgrade);
+		
 
 	}
 
+	
 	private void initializeAsteroids() {
 		asteroids = new Asteroid[10];
 		for (int i = 0; i < asteroids.length; i++) {
@@ -77,7 +82,9 @@ public class MainGameScreen extends GameScreen {
 
 	@Override
 	public void render(float delta) {
-		renderizado(delta);
+		if (!GameState.getGameState().pause) {
+			renderizado(delta);
+		}
 
 	}
 
@@ -90,11 +97,42 @@ public class MainGameScreen extends GameScreen {
 
 		escenario.act();
 	}
+	private void collideWithUpgrade(){
+		if(nave.isVisible() && upgrade.isVisible()){
+			if(nave.getSprite().isCollidingBoxLevel(upgrade.getSprite())){
+				if(upgrade.isRed()){
+					bulletManager.setColorRed();
+					bulletManager.currentShootType = BulletManager.ShootType.Two;
+					upgrade.setVisible(false);
+				}else{
+					bulletManager.currentShootType = BulletManager.ShootType.Three;
+					bulletManager.setColorGreen();
+					upgrade.setVisible(false);
+				}
+			}
+		}
+	}
+	private void activateUpgradeRed(){
+		if(GameState.getGameState().score==300 && !upgrade.isVisible()){
+			upgrade.reset();
+			upgrade.setVisible(true);
+		}
+	}
+	private void activateUpgradeGreen(){
+		if(GameState.getGameState().score == 1000 && !upgrade.isVisible()){
+			upgrade.reset();
+			upgrade.toggle();
+			upgrade.setVisible(true);
+		}
+	}
 
 	private void updateGameState() {
 		entrada.upadte();
 		collideAsteroidsAndBullets();
 		collideShipAndAsteroids();
+		activateUpgradeGreen();
+		activateUpgradeRed();
+		collideWithUpgrade();
 		score.setText("Score: " + GameState.getGameState().score);
 	}
 
@@ -133,7 +171,7 @@ public class MainGameScreen extends GameScreen {
 					asteroids[j].breakAnim();
 					// lanza la bala fuera de la pantalla
 					bullet.setPosition(0, Gdx.graphics.getHeight());
-					// bullet.setVisible(false) crea un bug, no usar
+					// bullet.setVisible(false); //crea un bug, no usar
 					GameState.getGameState().score += 10;
 
 					break;
@@ -158,6 +196,9 @@ public class MainGameScreen extends GameScreen {
 		explosion.reset();
 		shield.setVisible(true);
 		GameState.getGameState().resetGameState();
+		upgrade.reset();
+		bulletManager.reset();
+		
 
 	}
 

@@ -1,4 +1,4 @@
-package net.sites.seryux.actors;
+package net.sites.seryux.actors.multiComponentActors;
 
 import net.sites.seryux.utils.Sprite;
 
