@@ -38,7 +38,7 @@ public class LaserUpgrade extends Actor {
 		if (isVisible()) {
 			setPosition(getX(), getY() - speed * delta);
 			if (getY() <= -getHeight()) {
-				setVisible(false);
+				reset();
 			}
 		}
 		super.act(delta);
