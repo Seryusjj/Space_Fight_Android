@@ -38,12 +38,13 @@ public class LoadingScreen extends GameScreen {
 		table.row();
 		table.add(bar);
 
-
 		bg = new Background(escenario);
 		// input proccessor ahora es el escenario
 		// si no los botones no se actulizan como funcionalidad
 		escenario.addActor(table);
-		Gdx.input.setInputProcessor(escenario);
+		if (!GameState.getGameState().pause) {
+			Gdx.input.setInputProcessor(escenario);
+		}
 
 	}
 
@@ -57,7 +58,8 @@ public class LoadingScreen extends GameScreen {
 		startGame.setText(text);
 		bar.setValue(AssetsManager.getManager().getPercentage());
 
-		if (AssetsManager.getManager().update() && !GameState.getGameState().pause) {
+		if (AssetsManager.getManager().update()
+				&& !GameState.getGameState().pause) {
 			game.mainScreen = new MainGameScreen(game);
 			game.setScreen(game.mainScreen);
 		}
