@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManager;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 
 public class LaserUpgrade extends Actor {
 	private boolean isRed;
@@ -14,7 +14,7 @@ public class LaserUpgrade extends Actor {
 	private float speed;
 
 	public LaserUpgrade() {
-		super(AssetsManager.getManager().getLaserUpdateRed());
+		super(AssetsManagerLvl1.getManager().getLaserUpdateRed());
 		isRed = true;
 		setVisible(false);
 		rm = new Random();
@@ -28,9 +28,9 @@ public class LaserUpgrade extends Actor {
 	public void toggle() {
 		isRed = !isRed;
 		if (isRed) {
-			setSprite(AssetsManager.getManager().getLaserUpdateRed());
+			setSprite(AssetsManagerLvl1.getManager().getLaserUpdateRed());
 		} else {
-			setSprite(AssetsManager.getManager().getLaserUpdateGreen());
+			setSprite(AssetsManagerLvl1.getManager().getLaserUpdateGreen());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class LaserUpgrade extends Actor {
 
 	public void reset() {
 		isRed = true;
-		setSprite(AssetsManager.getManager().getLaserUpdateRed());
+		setSprite(AssetsManagerLvl1.getManager().getLaserUpdateRed());
 		setPosition(
 				rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
 				Gdx.graphics.getHeight());

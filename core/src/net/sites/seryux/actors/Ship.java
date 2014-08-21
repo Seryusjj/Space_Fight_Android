@@ -2,7 +2,7 @@ package net.sites.seryux.actors;
 
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManager;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 import net.sites.seryux.utils.CountDownTimer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -23,7 +23,7 @@ public class Ship extends Actor {
 	private boolean breaked;
 
 	public Ship(VirtualController controlador) {
-		super(AssetsManager.getManager().getShipTexture());
+		super(AssetsManagerLvl1.getManager().getShipTexture());
 		getSprite().setRegion(IDLE, 0, 128, 128);
 		setSize(128, 128);
 

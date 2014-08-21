@@ -3,7 +3,7 @@ package net.sites.seryux.actors;
 import java.util.Random;
 
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManager;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -24,7 +24,7 @@ public class Asteroid extends Actor {
 	private static final int ALTO = 256;
 
 	public Asteroid() {
-		super(AssetsManager.getManager().getAsteroidSprite());
+		super(AssetsManagerLvl1.getManager().getAsteroidSprite());
 		createAnim();
 		setBreaked(false);
 		// setDebug(true, new Color(1, 0, 0, 1));

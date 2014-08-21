@@ -3,7 +3,7 @@ package net.sites.seryux.actors.multiComponentActors;
 import com.badlogic.gdx.Gdx;
 
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManager;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 
   class Bullet extends Actor {
 
@@ -13,7 +13,7 @@ import net.sites.seryux.utils.AssetsManager;
 
 
 	protected Bullet(Actor parent) {
-		super(AssetsManager.getManager().getRedLaserSprite());
+		super(AssetsManagerLvl1.getManager().getRedLaserSprite());
 		//setDebug(parent.isDebug(), new Color(1, 0, 0, 1));
 		setSize(9, 32);
 		setSpeed(300);
@@ -23,11 +23,11 @@ import net.sites.seryux.utils.AssetsManager;
 	}
 
 	protected void setColorRed(){
-		setSprite(AssetsManager.getManager().getRedLaserSprite());
+		setSprite(AssetsManagerLvl1.getManager().getRedLaserSprite());
 	}
 	
 	protected void setColorGreen(){
-		setSprite(AssetsManager.getManager().getGreenLaserSprite());
+		setSprite(AssetsManagerLvl1.getManager().getGreenLaserSprite());
 	}
 
 

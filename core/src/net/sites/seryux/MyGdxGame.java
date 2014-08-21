@@ -35,8 +35,6 @@ public class MyGdxGame extends Game {
 				}
 				GameState.getGameState().gameOver = false;//reset
 				setScreen(gameOver);
-				
-				
 			}
 		} else if (GameState.getGameState().ready) {
 			GameState.getGameState().ready = false; //reset

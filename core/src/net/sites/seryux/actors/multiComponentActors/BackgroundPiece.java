@@ -2,7 +2,7 @@ package net.sites.seryux.actors.multiComponentActors;
 
 import com.badlogic.gdx.Gdx;
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManager;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 
 class BackgroundPiece extends Actor {
 	
@@ -12,7 +12,7 @@ class BackgroundPiece extends Actor {
 
 
 	protected BackgroundPiece() {
-		super(AssetsManager.getManager().getBackgroundLvl1Sprite());
+		super(AssetsManagerLvl1.getManager().getBackgroundLvl1Sprite());
 		setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		speed =250;
 	}

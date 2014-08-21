@@ -6,10 +6,12 @@ import net.sites.seryux.actors.multiComponentActors.BulletManager;
 import net.sites.seryux.input.ShipControlsInput;
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 import net.sites.seryux.utils.GameScreen;
 import net.sites.seryux.utils.GameState;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -29,13 +31,21 @@ public class MainGameScreen extends GameScreen {
 	private VirtualController controlador;
 	private ShipControlsInput entrada;
 	private BulletManager bulletManager;
+	private Music mainLoop;
 
 	public MainGameScreen(MyGdxGame game) {
 		super(game);
 
 		initializeGame();
 		initializeUI();
+		mainLoop = AssetsManagerLvl1.getManager().getGameLoopMusic();
 
+	}
+	@Override
+	public void show() {
+		mainLoop.setVolume(100);
+		mainLoop.play();
+		super.show();
 	}
 
 	private void initializeUI() {
@@ -84,6 +94,7 @@ public class MainGameScreen extends GameScreen {
 	public void render(float delta) {
 		if (!GameState.getGameState().pause) {
 			renderizado(delta);
+			
 		}
 
 	}
@@ -198,6 +209,7 @@ public class MainGameScreen extends GameScreen {
 		GameState.getGameState().resetGameState();
 		upgrade.reset();
 		bulletManager.reset();
+
 		
 
 	}

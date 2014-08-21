@@ -1,7 +1,7 @@
 package net.sites.seryux.actors.multiComponentActors;
 
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManager;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 import net.sites.seryux.utils.CountDownTimer;
 
 class BulletLight extends Actor {
@@ -11,7 +11,7 @@ class BulletLight extends Actor {
 	private CountDownTimer timer;
 
 	protected BulletLight(Actor parent) {
-		super(AssetsManager.getManager().getRedLaserLightSprite());
+		super(AssetsManagerLvl1.getManager().getRedLaserLightSprite());
 
 		setSize(64, 64);
 		this.parent = parent;
@@ -28,11 +28,11 @@ class BulletLight extends Actor {
 	}
 	
 	protected void setColorRed(){
-		setSprite(AssetsManager.getManager().getRedLaserLightSprite());
+		setSprite(AssetsManagerLvl1.getManager().getRedLaserLightSprite());
 	}
 	
 	protected void setColorGreen(){
-		setSprite(AssetsManager.getManager().getGreenLaserLightSprite());
+		setSprite(AssetsManagerLvl1.getManager().getGreenLaserLightSprite());
 	}
 
 
