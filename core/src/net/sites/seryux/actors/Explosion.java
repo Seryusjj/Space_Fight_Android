@@ -1,6 +1,7 @@
 package net.sites.seryux.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,12 +14,14 @@ public class Explosion extends Actor {
 
 	private float duration;
 	private Animation explosion;
+	
 
 	public Explosion() {
 		super(AssetsManagerLvl1.getManager().getExplosionSprite());
 		setSize(128, 128);
 		createExplosionAnim();
 		setVisible(false);
+		
 	}
 
 	private void createExplosionAnim() {

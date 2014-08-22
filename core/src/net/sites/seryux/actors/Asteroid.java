@@ -4,7 +4,9 @@ import java.util.Random;
 
 import net.sites.seryux.utils.Actor;
 import net.sites.seryux.utils.AssetsManagerLvl1;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,6 +21,7 @@ public class Asteroid extends Actor {
 
 	private Random rm;
 	private int speed;
+	private Music rockBreakingMusic;
 	// Ancho y alto del sprite sheet
 	private static final int ANCHO = 3840;
 	private static final int ALTO = 256;
@@ -37,6 +40,7 @@ public class Asteroid extends Actor {
 		setPosition(
 				rm.nextInt((int) (Gdx.graphics.getWidth() - getWidth() + 1)),
 				Gdx.graphics.getHeight());
+		setRockBreakingMusic(AssetsManagerLvl1.getManager().getRockBreakingSound());
 
 	}
 
@@ -89,6 +93,15 @@ public class Asteroid extends Actor {
 			setVisible(false);
 		}
 
+	}
+	
+	public void playRockBreakingMusic(){
+		if(rockBreakingMusic.isPlaying()){
+			rockBreakingMusic.stop();
+		}
+			rockBreakingMusic.play();
+		
+		
 	}
 
 	public void act(float delta) {
@@ -159,6 +172,12 @@ public class Asteroid extends Actor {
 
 	public void setCurrentAnimation(Animation currentAnimation) {
 		this.currentAnimation = currentAnimation;
+	}
+
+
+
+	private void setRockBreakingMusic(Music rockBreakingMusic) {
+		this.rockBreakingMusic = rockBreakingMusic;
 	}
 	
 

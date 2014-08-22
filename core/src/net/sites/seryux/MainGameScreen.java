@@ -160,6 +160,7 @@ public class MainGameScreen extends GameScreen {
 					if (nave.getSprite().isCollidingBoxLevel(
 							asteroids[i].getSprite())) {
 						asteroids[i].breakAnim();
+						asteroids[i].playRockBreakingMusic();
 						nave.setBreaked(true);
 						explosion.setPosition(nave.getX(), nave.getY());
 						explosion.setVisible(true);
@@ -180,6 +181,7 @@ public class MainGameScreen extends GameScreen {
 						asteroids[j].getSprite())) {
 					// inicia la animacion de break rock
 					asteroids[j].breakAnim();
+					asteroids[j].playRockBreakingMusic();
 					// lanza la bala fuera de la pantalla
 					bullet.setPosition(0, Gdx.graphics.getHeight());
 					// bullet.setVisible(false); //crea un bug, no usar

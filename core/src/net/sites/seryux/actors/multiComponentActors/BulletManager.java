@@ -1,8 +1,10 @@
 package net.sites.seryux.actors.multiComponentActors;
 
 import net.sites.seryux.utils.Actor;
+import net.sites.seryux.utils.AssetsManagerLvl1;
 import net.sites.seryux.utils.CountDownTimer;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -13,6 +15,7 @@ public class BulletManager extends Actor {
 	private Bullet[] bullets;
 	private BulletLight[] bulletLights;
 	private Actor parent;
+	private Music laserMusic;
 
 	private CountDownTimer timer;
 
@@ -35,23 +38,35 @@ public class BulletManager extends Actor {
 			escenario.addActor(bulletLights[i]);
 		}
 		timer = new CountDownTimer(0.7f);
-		this.parent =parent;
+		laserMusic = AssetsManagerLvl1.getManager().getLaserMusic();
+		this.parent = parent;
 
 	}
 
 	public void act(float delta) {
 
-		if(parent.isVisible() && timer.hasFinished(delta)){
+		if (parent.isVisible() && timer.hasFinished(delta)) {
 			timer.reset();
 			if (currentShootType.equals(ShootType.One)) {
 				shootOne();
+				playSound();
 			} else if (currentShootType.equals(ShootType.Two)) {
 				shootTwo();
+				playSound();
 			} else if (currentShootType.equals(ShootType.Three)) {
 				shootThree();
+				playSound();
 			}
 		}
 		super.act(delta);
+	}
+
+	private void playSound() {
+		if (laserMusic.isPlaying()) {
+			laserMusic.stop();
+		} 
+			laserMusic.play();
+		
 	}
 
 	public void draw(Batch batch, float parentAlpha) {
@@ -59,15 +74,16 @@ public class BulletManager extends Actor {
 	}
 
 	protected void updateBounds() {
-		//since it has no sprite, do not update the bounds
+		// since it has no sprite, do not update the bounds
 	}
 
-	public void setColorRed(){
+	public void setColorRed() {
 		for (int i = 0; i < numBullets; i++) {
 			bullets[i].setColorRed();
 			bulletLights[i].setColorRed();
 		}
 	}
+
 	public void setColorGreen() {
 		for (int i = 0; i < numBullets; i++) {
 			bullets[i].setColorGreen();
@@ -76,8 +92,8 @@ public class BulletManager extends Actor {
 	}
 
 	public int getBulletIndex() {
-		bulletIndex = ++bulletIndex%numBullets;
-	
+		bulletIndex = ++bulletIndex % numBullets;
+
 		return bulletIndex;
 	}
 
@@ -95,7 +111,7 @@ public class BulletManager extends Actor {
 		bullets[index].setVisible(true);
 		bulletLights[index].setPositionLeft();
 		bulletLights[index].setVisible(true);
-		
+
 		index = getBulletIndex();
 		bullets[index].setPositionRight();
 		bullets[index].setVisible(true);
@@ -109,13 +125,13 @@ public class BulletManager extends Actor {
 		bullets[index].setVisible(true);
 		bulletLights[index].setPositionLeft();
 		bulletLights[index].setVisible(true);
-		
+
 		index = getBulletIndex();
 		bullets[index].setPositionRight();
 		bullets[index].setVisible(true);
 		bulletLights[index].setPositionRight();
 		bulletLights[index].setVisible(true);
-		
+
 		index = getBulletIndex();
 		bullets[index].setPositionCenter();
 		bullets[index].setVisible(true);
@@ -134,7 +150,7 @@ public class BulletManager extends Actor {
 	public void reset() {
 		currentShootType = ShootType.One;
 		setColorRed();
-		
+
 	}
 
 }
