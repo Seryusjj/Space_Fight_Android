@@ -1,7 +1,6 @@
 package net.sites.seryux.utils;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
 public class AssetsManagerLvl1 {
@@ -30,36 +29,15 @@ public class AssetsManagerLvl1 {
 		assets.load("spaceship/ship.png", Texture.class);
 		assets.load("effects/laserUpgradeRed.png", Texture.class);
 		assets.load("effects/laserUpgradeGreen.png", Texture.class);
-		assets.load("sounds/Brave Solders.mp3",Music.class);
-		assets.load("sounds/laser7.wav",Music.class);
-		assets.load("sounds/rock_breaking.wav",Music.class);
 		
 	}
 	
-	public Music getLaserMusic(){
-		Music loop = assets.get("sounds/laser7.wav", Music.class);
-		loop.setLooping(true);
-		loop.setVolume(1);
-		return loop;
-	} 
-	
-	public Music getRockBreakingSound(){
-		Music loop = assets.get("sounds/rock_breaking.wav", Music.class);
-		loop.setLooping(true);
-		loop.setVolume(1);
-		return loop;
-	} 
 	
 	
 	
 	
 	
-	public Music getGameLoopMusic(){
-		Music loop = assets.get("sounds/Brave Solders.mp3", Music.class);
-		loop.setLooping(true);
-		loop.setVolume(1);
-		return loop;
-	}
+	
 
 	public float getPercentage() {
 		return assets.getProgress();

@@ -21,7 +21,7 @@ public class MyGdxGame extends Game {
 		mainMenu = new LoadingScreen(this);
 		
 		setScreen(mainMenu);
-		timer = new CountDownTimer(2);
+		timer = new CountDownTimer(4);
 	}
 
 	@Override

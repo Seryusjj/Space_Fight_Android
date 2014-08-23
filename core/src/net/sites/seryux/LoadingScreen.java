@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import net.sites.seryux.actors.multiComponentActors.Background;
 import net.sites.seryux.utils.AssetsManagerLvl1;
+import net.sites.seryux.utils.AssetsManagerSoundsLvl1;
 import net.sites.seryux.utils.GameScreen;
 import net.sites.seryux.utils.GameState;
 
@@ -56,9 +57,12 @@ public class LoadingScreen extends GameScreen {
 		escenario.act();
 		bg.moveBackground();
 		startGame.setText(text);
-		bar.setValue(AssetsManagerLvl1.getManager().getPercentage());
+
+		bar.setValue((AssetsManagerLvl1.getManager().getPercentage() + AssetsManagerSoundsLvl1
+				.getManager().getPercentage())/2);
 
 		if (AssetsManagerLvl1.getManager().update()
+				&& AssetsManagerSoundsLvl1.getManager().update()
 				&& !GameState.getGameState().pause) {
 			game.mainScreen = new MainGameScreen(game);
 			game.setScreen(game.mainScreen);

@@ -6,7 +6,7 @@ import net.sites.seryux.actors.multiComponentActors.BulletManager;
 import net.sites.seryux.input.ShipControlsInput;
 import net.sites.seryux.input.VirtualController;
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManagerLvl1;
+import net.sites.seryux.utils.AssetsManagerSoundsLvl1;
 import net.sites.seryux.utils.GameScreen;
 import net.sites.seryux.utils.GameState;
 
@@ -22,31 +22,29 @@ public class MainGameScreen extends GameScreen {
 	private Skin skin;
 	private Label score;
 
+	//Game elements (Actors)
 	private Asteroid[] asteroids;
 	private Ship nave;
 	private LaserUpgrade upgrade;
 	private Shield shield;
 	private Explosion explosion;
 	private Background bg;
+	private BulletManager bulletManager;
+	
+	//Other non actors game coponets
 	private VirtualController controlador;
 	private ShipControlsInput entrada;
-	private BulletManager bulletManager;
-	private Music mainLoop;
+
 
 	public MainGameScreen(MyGdxGame game) {
 		super(game);
 
 		initializeGame();
 		initializeUI();
-		mainLoop = AssetsManagerLvl1.getManager().getGameLoopMusic();
+		AssetsManagerSoundsLvl1.getManager().playGameLoopLvl1Soun();
 
 	}
-	@Override
-	public void show() {
-		mainLoop.setVolume(100);
-		mainLoop.play();
-		super.show();
-	}
+
 
 	private void initializeUI() {
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -160,11 +158,14 @@ public class MainGameScreen extends GameScreen {
 					if (nave.getSprite().isCollidingBoxLevel(
 							asteroids[i].getSprite())) {
 						asteroids[i].breakAnim();
-						asteroids[i].playRockBreakingMusic();
+						AssetsManagerSoundsLvl1.getManager().playRockBreakibngSound();
 						nave.setBreaked(true);
 						explosion.setPosition(nave.getX(), nave.getY());
 						explosion.setVisible(true);
+						bulletManager.reset();
 						GameState.getGameState().gameOver = true;
+						AssetsManagerSoundsLvl1.getManager().loose();
+						
 					}
 				}
 			}
@@ -181,7 +182,7 @@ public class MainGameScreen extends GameScreen {
 						asteroids[j].getSprite())) {
 					// inicia la animacion de break rock
 					asteroids[j].breakAnim();
-					asteroids[j].playRockBreakingMusic();
+					AssetsManagerSoundsLvl1.getManager().playRockBreakibngSound();
 					// lanza la bala fuera de la pantalla
 					bullet.setPosition(0, Gdx.graphics.getHeight());
 					// bullet.setVisible(false); //crea un bug, no usar
@@ -211,6 +212,8 @@ public class MainGameScreen extends GameScreen {
 		GameState.getGameState().resetGameState();
 		upgrade.reset();
 		bulletManager.reset();
+		AssetsManagerSoundsLvl1.getManager().resetGame();
+
 
 		
 

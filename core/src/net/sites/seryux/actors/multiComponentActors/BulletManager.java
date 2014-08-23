@@ -1,10 +1,9 @@
 package net.sites.seryux.actors.multiComponentActors;
 
 import net.sites.seryux.utils.Actor;
-import net.sites.seryux.utils.AssetsManagerLvl1;
+import net.sites.seryux.utils.AssetsManagerSoundsLvl1;
 import net.sites.seryux.utils.CountDownTimer;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -15,7 +14,7 @@ public class BulletManager extends Actor {
 	private Bullet[] bullets;
 	private BulletLight[] bulletLights;
 	private Actor parent;
-	private Music laserMusic;
+
 
 	private CountDownTimer timer;
 
@@ -38,7 +37,7 @@ public class BulletManager extends Actor {
 			escenario.addActor(bulletLights[i]);
 		}
 		timer = new CountDownTimer(0.7f);
-		laserMusic = AssetsManagerLvl1.getManager().getLaserMusic();
+
 		this.parent = parent;
 
 	}
@@ -49,25 +48,19 @@ public class BulletManager extends Actor {
 			timer.reset();
 			if (currentShootType.equals(ShootType.One)) {
 				shootOne();
-				playSound();
+				AssetsManagerSoundsLvl1.getManager().playLaserSound();
 			} else if (currentShootType.equals(ShootType.Two)) {
 				shootTwo();
-				playSound();
+				AssetsManagerSoundsLvl1.getManager().playLaserSound();
 			} else if (currentShootType.equals(ShootType.Three)) {
 				shootThree();
-				playSound();
+				AssetsManagerSoundsLvl1.getManager().playLaserSound();
 			}
 		}
 		super.act(delta);
 	}
 
-	private void playSound() {
-		if (laserMusic.isPlaying()) {
-			laserMusic.stop();
-		} 
-			laserMusic.play();
-		
-	}
+
 
 	public void draw(Batch batch, float parentAlpha) {
 		// dont't draw anything
@@ -150,6 +143,7 @@ public class BulletManager extends Actor {
 	public void reset() {
 		currentShootType = ShootType.One;
 		setColorRed();
+		
 
 	}
 
