@@ -11,7 +11,6 @@ import net.sites.seryux.utils.GameScreen;
 import net.sites.seryux.utils.GameState;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,7 +21,7 @@ public class MainGameScreen extends GameScreen {
 	private Skin skin;
 	private Label score;
 
-	//Game elements (Actors)
+	// Game elements (Actors)
 	private Asteroid[] asteroids;
 	private Ship nave;
 	private LaserUpgrade upgrade;
@@ -30,11 +29,10 @@ public class MainGameScreen extends GameScreen {
 	private Explosion explosion;
 	private Background bg;
 	private BulletManager bulletManager;
-	
-	//Other non actors game coponets
+
+	// Other non actors game coponets
 	private VirtualController controlador;
 	private ShipControlsInput entrada;
-
 
 	public MainGameScreen(MyGdxGame game) {
 		super(game);
@@ -44,7 +42,6 @@ public class MainGameScreen extends GameScreen {
 		AssetsManagerSoundsLvl1.getManager().playGameLoopLvl1Soun();
 
 	}
-
 
 	private void initializeUI() {
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -74,11 +71,9 @@ public class MainGameScreen extends GameScreen {
 		escenario.addActor(bulletManager);
 		escenario.addActor(explosion);
 		escenario.addActor(upgrade);
-		
 
 	}
 
-	
 	private void initializeAsteroids() {
 		asteroids = new Asteroid[10];
 		for (int i = 0; i < asteroids.length; i++) {
@@ -92,7 +87,7 @@ public class MainGameScreen extends GameScreen {
 	public void render(float delta) {
 		if (!GameState.getGameState().pause) {
 			renderizado(delta);
-			
+
 		}
 
 	}
@@ -106,14 +101,15 @@ public class MainGameScreen extends GameScreen {
 
 		escenario.act();
 	}
-	private void collideWithUpgrade(){
-		if(nave.isVisible() && upgrade.isVisible()){
-			if(nave.getSprite().isCollidingBoxLevel(upgrade.getSprite())){
-				if(upgrade.isRed()){
+
+	private void collideWithUpgrade() {
+		if (nave.isVisible() && upgrade.isVisible()) {
+			if (nave.getSprite().isCollidingBoxLevel(upgrade.getSprite())) {
+				if (upgrade.isRed()) {
 					bulletManager.setColorRed();
 					bulletManager.currentShootType = BulletManager.ShootType.Two;
 					upgrade.setVisible(false);
-				}else{
+				} else {
 					bulletManager.currentShootType = BulletManager.ShootType.Three;
 					bulletManager.setColorGreen();
 					upgrade.setVisible(false);
@@ -121,14 +117,16 @@ public class MainGameScreen extends GameScreen {
 			}
 		}
 	}
-	private void activateUpgradeRed(){
-		if(GameState.getGameState().score==300 && !upgrade.isVisible()){
+
+	private void activateUpgradeRed() {
+		if (GameState.getGameState().score == 300 && !upgrade.isVisible()) {
 			upgrade.reset();
 			upgrade.setVisible(true);
 		}
 	}
-	private void activateUpgradeGreen(){
-		if(GameState.getGameState().score == 1000 && !upgrade.isVisible()){
+
+	private void activateUpgradeGreen() {
+		if (GameState.getGameState().score == 1000 && !upgrade.isVisible()) {
 			upgrade.reset();
 			upgrade.toggle();
 			upgrade.setVisible(true);
@@ -158,14 +156,15 @@ public class MainGameScreen extends GameScreen {
 					if (nave.getSprite().isCollidingBoxLevel(
 							asteroids[i].getSprite())) {
 						asteroids[i].breakAnim();
-						AssetsManagerSoundsLvl1.getManager().playRockBreakibngSound();
+						AssetsManagerSoundsLvl1.getManager()
+								.playRockBreakibngSound();
 						nave.setBreaked(true);
 						explosion.setPosition(nave.getX(), nave.getY());
 						explosion.setVisible(true);
 						bulletManager.reset();
 						GameState.getGameState().gameOver = true;
 						AssetsManagerSoundsLvl1.getManager().loose();
-						
+
 					}
 				}
 			}
@@ -182,7 +181,8 @@ public class MainGameScreen extends GameScreen {
 						asteroids[j].getSprite())) {
 					// inicia la animacion de break rock
 					asteroids[j].breakAnim();
-					AssetsManagerSoundsLvl1.getManager().playRockBreakibngSound();
+					AssetsManagerSoundsLvl1.getManager()
+							.playRockBreakibngSound();
 					// lanza la bala fuera de la pantalla
 					bullet.setPosition(0, Gdx.graphics.getHeight());
 					// bullet.setVisible(false); //crea un bug, no usar
@@ -213,9 +213,6 @@ public class MainGameScreen extends GameScreen {
 		upgrade.reset();
 		bulletManager.reset();
 		AssetsManagerSoundsLvl1.getManager().resetGame();
-
-
-		
 
 	}
 

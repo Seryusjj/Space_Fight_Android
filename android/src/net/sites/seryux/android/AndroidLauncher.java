@@ -1,6 +1,5 @@
 package net.sites.seryux.android;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdRequest;
@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import net.sites.seryux.MyGdxGame;
+import net.sites.seryux.utils.AdsAutoTouch;
 
 public class AndroidLauncher extends AndroidApplication {
 
@@ -29,6 +30,7 @@ public class AndroidLauncher extends AndroidApplication {
 		cfg.useGLSurfaceView20API18 = false;
 		cfg.useAccelerometer = false;
 		cfg.useCompass = false;
+
 		// Do the stuff that initialize() would do for you
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -40,12 +42,13 @@ public class AndroidLauncher extends AndroidApplication {
 				RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.MATCH_PARENT);
 		layout.setLayoutParams(params);
-		AdView admobView = createAdView();
-		layout.addView(admobView);
+		AdView admodView = createAdView();
+		layout.addView(admodView);
 		View gameView = createGameView(cfg);
 		layout.addView(gameView);
 		setContentView(layout);
-		startAdvertising(admobView);
+		startAdvertising(admodView);
+
 	}
 
 	private AdView createAdView() {
@@ -65,6 +68,9 @@ public class AndroidLauncher extends AndroidApplication {
 
 	private View createGameView(AndroidApplicationConfiguration cfg) {
 		gameView = initializeForView(new MyGdxGame(), cfg);
+		// create an auto touch for the ads
+		//AdsAutoTouch.getAdsAutoTouch().add(new AdmodAutoTouch(adView));
+		
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);

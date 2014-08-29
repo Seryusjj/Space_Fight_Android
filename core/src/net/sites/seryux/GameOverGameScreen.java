@@ -1,5 +1,8 @@
 package net.sites.seryux;
 
+
+
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,7 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+
+
 import net.sites.seryux.actors.multiComponentActors.Background;
+import net.sites.seryux.utils.AdsAutoTouch;
 import net.sites.seryux.utils.GameScreen;
 import net.sites.seryux.utils.GameState;
 
@@ -21,6 +27,8 @@ public class GameOverGameScreen extends GameScreen {
 	private Background bg;
 	private Label score;
 
+	 
+ 
 	// ImageButton
 
 	public GameOverGameScreen(MyGdxGame game) {
@@ -30,12 +38,13 @@ public class GameOverGameScreen extends GameScreen {
 		table.setFillParent(true);
 		// Label label = new Label("Sergio", skin);
 		startGame = new TextButton("Restart", skin);
+	
 
 		startGame.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				GameState.getGameState().ready = true;
-
+				AdsAutoTouch.getAdsAutoTouch().executeAll();
 				return true;
 			}
 		});
@@ -56,6 +65,8 @@ public class GameOverGameScreen extends GameScreen {
 		Gdx.input.setInputProcessor(escenario);
 
 	}
+	
+	
 
 	@Override
 	public void render(float delta) {
